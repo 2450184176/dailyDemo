@@ -96,3 +96,29 @@ YAML (181.4203.535)
 Yeoman (181.4203.535)
 ```
 
+###图片压缩
+```javascript
+compressImg(imgBase64, size, callback) { //图片压缩
+      let compressScale = 3 * 1024 * 1024 / size * 0.7;
+      let img = new Image();
+      img.src = imgBase64;
+      img.onload = function () {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        canvas.style.display = "none";
+        document.body.appendChild(canvas);
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height);
+        var compressionResult = canvas.toDataURL("image/jpeg", compressScale);
+        document.body.removeChild(canvas);
+        img = null;
+        callback(compressionResult);
+      };
+      img.onerror = function () {
+        callback(false);
+        img = null;
+        smyToast({text: '图片压缩失败'});
+      }
+    },
+    ```
