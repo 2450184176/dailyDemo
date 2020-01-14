@@ -121,4 +121,4 @@ compressImg(imgBase64, size, callback) { //图片压缩
         smyToast({text: '图片压缩失败'});
       }
     },
-    ```
+```
